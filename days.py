@@ -1,3 +1,2 @@
 class Day:
-    def increaseDay():
-        day = 1
+    print("null")
