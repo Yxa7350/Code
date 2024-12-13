@@ -2,7 +2,7 @@ import accountBalance
 import companies
 import graphMaker
 import inputValidator
+import days
 
-print("Welcome to Stock Market Simulator")
-print("To get started, please provide your monthly income.")
 availableInvestment = accountBalance.Account
+companies.Company(availableInvestment, day)
