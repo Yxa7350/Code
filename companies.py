@@ -1,6 +1,6 @@
 import random
 
-companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA Corporation" ]
+companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA Corporation"]
 
 class Company:
     type = None
@@ -35,5 +35,24 @@ Sp500 = Company()
 Nvidia = Company()
 
 class choosing:
-    while True:
-        pass
+    @staticmethod
+    def choose(balance, day):
+        while True:
+            print(companyList)
+            choice = input("In which Company would you like to invest?(write \"DONE\" if you are done)  ")
+            if (choice == "Nike"):
+                break
+            elif (choice == "Adidas"):
+                break
+            elif (choice == "Apple"):
+                break
+            elif (choice == "Tesla"):
+                break
+            elif (choice == "S&P 500"):
+                break
+            elif (choice == "NVIDIA Corporation"):
+                break
+            elif (choice == "DONE"):
+                break
+            else:
+                print("Please enter a valid company name")
