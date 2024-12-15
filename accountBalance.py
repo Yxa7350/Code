@@ -2,7 +2,8 @@ import inputValidator
 import math
 import companies
 class Account:
-    money = inputValidator.Validator.get_integer("How much money do you have for investment? Between the price range $1250-$20000  - $" ,1250,20000)
+    def getMoney():
+        money = inputValidator.Validator.get_integer("How much money do you have for investment? Between the price range $1250-$20000  - $" ,1250,20000)
     
     def deposit(amount):
         print(str.format("Depositing ${:.2f}",amount))
