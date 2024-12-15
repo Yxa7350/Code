@@ -1,29 +1,27 @@
 class Validator:
-
+  @staticmethod
   def get_integer(prompt, min, max):
-
     while True:
       try:
-        inputString = input(prompt) 
-        inputInt = int(inputString)  
-
-        if (inputInt >= min) and (inputInt <= max):
-          return inputInt            
-      except:
-         print("You don't meet the investment requirements.")
-         continue                    
-
+        inputString = input(prompt)  # Get user input
+        inputInt = int(inputString)  # Convert to int
+        if min <= inputInt <= max:  # Verify range
+          return inputInt  # Return valid input
+        else:
+          print(f"Please enter a value between ${min} and ${max}.")
+      except ValueError:
+        print("Invalid input. Please enter a valid integer.")
+  @staticmethod
   def get_float(prompt, min, max):
 
-    
+    # loop until correct input received
     while True:
       try:
-        inputString = input(prompt)      
-        inputFloat = float(inputString)  
+        inputString = input(prompt)      # get user input
+        inputFloat = float(inputString)  # try to convert to float
 
-        if (inputFloat >= min) and (inputFloat <= max): 
-          return inputFloat          
+        if (inputFloat >= min) and (inputFloat <= max):  # verify range
+          return inputFloat          # success!
       except:
-         print("You don't meet the investment requirements.")
-         continue                    
+         continue                    # try again
          

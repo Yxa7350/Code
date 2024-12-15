@@ -1,2 +1,2 @@
-class Day:
-    pass
+#class Day:
+#    pass
