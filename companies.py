@@ -41,7 +41,10 @@ class choosing:
             print(companyList)
             choice = input("In which Company would you like to invest?(write \"DONE\" if you are done)  ")
             if (choice == "Nike"):
-                break
+                stockType = Nike.type
+
+                print("Current Nike stock price:-", )
+                print("Current Nike stock volume:-", )
             elif (choice == "Adidas"):
                 break
             elif (choice == "Apple"):
