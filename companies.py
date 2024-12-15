@@ -25,6 +25,8 @@ class Company:
             self.type = 8
         elif (self.type1 == 3) and (self.type2 == 3):
             self.type = 9
+    def showCompanies(self, investment, day):
+        pass
 
 
 Nike = Company()

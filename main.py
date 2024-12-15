@@ -4,11 +4,11 @@ import graphMaker
 import inputValidator
 import days
 
-availableInvestment = accountBalance.Account
-companies.Company(availableInvestment, 1)
 print("Welcome to Stock Market Simulator")
+availableInvestment = accountBalance.Account
 print("Amount available for investment - $", accountBalance.Account.money)
 print("Let's begin!")
+companies.Company.showCompanies(availableInvestment, 1)
 chosenCompany= input(print("please choose the company you wish to invest in from", companies.companyList))
 
 

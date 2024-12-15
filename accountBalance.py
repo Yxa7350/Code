@@ -19,8 +19,3 @@ class Account:
         return
     def get_balance():
         return Account.money
-    
-   
-    chosen_company = input("Company Chosen: ")
-    def deposit():
-        print("DEPEOOE")
