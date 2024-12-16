@@ -45,7 +45,8 @@ class choosing:
                 stockType = Nike.type
                 if stockType == 1:
                     stockVolume = random.randrange(50,201)
-                    stockPrice = random.randrange(1, )
+                    stockPriceBad = random.Random(1, )
+                    stockPrice = math.round(stockPriceBad, 2)
                 print("Current Nike stock price:-", )
                 print("Current Nike stock volume:-", )
             elif (choice == "Adidas"):
