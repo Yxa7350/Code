@@ -1,11 +1,12 @@
 import random
+import math
 
 companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA Corporation"]
 
 class Company:
     type = None
     type1 = random.randrange(1,4) # Types include Small, Medium, and Large volume of shares
-    type2 = random.randrange(1,4) # Types include Growth, Value, and Common for each share
+    type2 = random.randrange(1,4) # Types include Common, Value, and Growth for each share
     def __init__(self):
         if (self.type1 == 1) and (self.type2 == 1):
             self.type = 1
@@ -42,7 +43,9 @@ class choosing:
             choice = input("In which Company would you like to invest?(write \"DONE\" if you are done)  ")
             if (choice == "Nike"):
                 stockType = Nike.type
-
+                if stockType == 1:
+                    stockVolume = random.randrange(50,201)
+                    stockPrice = random.randrange(1, )
                 print("Current Nike stock price:-", )
                 print("Current Nike stock volume:-", )
             elif (choice == "Adidas"):
