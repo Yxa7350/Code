@@ -1,16 +1,14 @@
-#import datetime
+import datetime
  
-#class days:
+class Days:
+    @staticmethod
+    def days_ago(n):
+        return datetime.date.today() - datetime.timedelta(days=n)
 
-    #def days_ago(n):
-        #return datetime.date.today() - datetime.timedelta(n)
-
-   # stockTime = print(str.format("starting time is: {}",days_ago(100),"%A,%B,%Y"))
-
-   # def add_days():
-     #   return days.stockTime + datetime.timedelta(10)
-
- #   add_days()
-
-
-      
+    stockTimeEnd = days_ago(100)
+    stockTimeStart = days_ago(101)
+    
+    @staticmethod
+    def add_days():
+        Days.stockTimeEnd += datetime.timedelta(10)
+        Days.stockTimeStart += datetime.timedelta(10)

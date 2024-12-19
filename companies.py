@@ -10,8 +10,8 @@ class choosing:
     def choose(balance):
         while True:
             print(companyList)
-            startDate = "2024-11-15"
-            end = "2024-11-16"
+            startDate = days.Days.stockTimeStart
+            end = days.Days.stockTimeEnd
             def get_stock_price(ticker, start_date, end_date):
                 # Get historical market data for the specific date range
                 historical_data = ticker.history(start=start_date, end=end_date)
