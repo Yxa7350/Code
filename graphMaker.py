@@ -1,18 +1,24 @@
 import yfinance as yf
-import asciichartpy
+import plotext as plt
+from datetime import datetime
 
-# Use a valid historical date range
-start = '2022-01-01'  # Start date
-end = '2022-12-31'    # End date
+# Fetch stock data using yfinance
+ticker = "AAPL"  # Example: Apple Inc.
+data = yf.download(ticker, start="2023-01-01", end="2023-12-31", group_by="ticker")
 
-# Download stock data for Google
-data = yf.download('GOOG', start=start, end=end)
+# Ensure the 'Close' column exists and is accessed correctly
+if (ticker, "Close") in data.columns:
+    closing_prices = data[(ticker, "Close")].tolist()
 
-# Check if data is fetched correctly
-if not data.empty:
-    prices = data['Close'].tolist()
-    # Print the chart
-    chart = asciichartpy.plot(prices, {'height': 10})
-    print(chart)
+    # Convert dates to plotext-compatible format
+    dates = [datetime.strptime(date, "%Y-%m-%d").strftime("%d/%m/%Y") for date in data.index.strftime("%Y-%m-%d").tolist()]
+
+    # Plot using plotext
+    plt.clear_data()
+    plt.title(f"{ticker} Closing Prices")
+    plt.xlabel("Date")
+    plt.ylabel("Price (USD)")
+    plt.plot(dates, closing_prices, label=f"{ticker} Close")
+    plt.show()  # Legend will display automatically
 else:
-    print("No data found for the given date range.")
+    print(f"Error: 'Close' column not found for ticker {ticker} in the retrieved data.")
