@@ -1,6 +1,7 @@
 import random
 import days
 import yfinance as yf
+import graphMaker
 
 companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA Corporation"]
 
@@ -38,9 +39,10 @@ class choosing:
 
             choice = input("In which Company would you like to invest?(write \"DONE\" if you are done)  ")
             if (choice == "Nike"):
-                Nike = yf.Ticker("nke")
+                Nike = yf.Ticker("NKE")
                 print("Current Nike stock price:-   $", round(get_stock_price(Nike, startDate, end), 2))
                 print("Current Nike stock volume:-  ", get_stock_volume(Nike, startDate, end))
+                graphMaker.fiftyDays(Nike)
             elif (choice == "Adidas"):
                 break
             elif (choice == "Apple"):

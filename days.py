@@ -1,5 +1,5 @@
 import datetime
- 
+
 class Days:
     @staticmethod
     def days_ago(n):
@@ -7,8 +7,10 @@ class Days:
 
     stockTimeEnd = days_ago(100)
     stockTimeStart = days_ago(101)
+    fiftyStock = days_ago(151)
     
     @staticmethod
     def add_days():
         Days.stockTimeEnd += datetime.timedelta(10)
         Days.stockTimeStart += datetime.timedelta(10)
+        Days.fiftyStock += datetime.timedelta(10)
