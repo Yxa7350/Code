@@ -21,10 +21,11 @@ def fiftyDays(ticker):
 
         # Plot using plotext
         plt.clear_data()
+        plt.theme("dark")
         plt.title(f"{ticker} Stock Price")
         plt.xlabel("Date")
         plt.ylabel("Price (USD)")
-        plt.plot(dates, closing_prices, label=f"{ticker} Close")
+        plt.plot(dates, closing_prices, label=f"{ticker} Stock Price", marker=None)
         plt.show()  # Legend will display automatically
     else:
         print(f"Error: 'Close' column not found for ticker {ticker} in the retrieved data.")
