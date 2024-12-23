@@ -8,11 +8,13 @@ class Account:
     @staticmethod
     def addValue():
         Account.money = inputValidator.Validator.get_integer("How much money do you have for investment? Between the price range $1250-$20000  - $", 1250, 20000)
+        Player.Stats.startingMoney(Account.money)
     
     @staticmethod
     def buyStock(amount, price, name):
         buy = amount*price
         print(f"Bought {amount} {name} stock for ${buy}")
+        Player.Stats.addStock(name, amount)
         temp= round(Account.money - buy, 2)
         Account.money = temp
         print("Your Current Account Balance:-   $", Account.money)
