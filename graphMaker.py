@@ -23,7 +23,7 @@ def fiftyDays(ticker):
         plt.clear_data()
         plt.theme("dark")
         plt.title(f"{ticker} Stock Price")
-        plt.xlabel("Date")
+        plt.xlabel("Date (dd/mm/yyyy)")
         plt.ylabel("Price (USD)")
         plt.plot(dates, closing_prices, label=f"{ticker} Stock Price", marker=None)
         plt.show()  # Legend will display automatically

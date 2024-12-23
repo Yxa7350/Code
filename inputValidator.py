@@ -8,7 +8,7 @@ class Validator:
         if min <= inputInt <= max:  # Verify range
           return inputInt  # Return valid input
         else:
-          print(f"Please enter a value between ${min} and ${max}.")
+          print(f"Please enter a value between {min} and {max}.")
       except ValueError:
         print("Invalid input. Please enter a valid integer.")
   @staticmethod
