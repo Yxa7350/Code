@@ -20,13 +20,11 @@ class Account:
         print("Your Current Account Balance:-   $", Account.money)
         companies.choosing.choose(Account.money)
 
-#    def withdraw(amount):
-#        print("how much money do you want to invest in", )
- #       if (Account.money.balance >= amount):
-  #          print(str.format("Withdrawing ${:.2f}",amount))
-   #         Account.money -= amount
-    #    else:
-     #       print("Insufficient funds")
-   #     return
-#    def get_balance():
-    #    return Account.money
+    def sellStock(amount, price, name):
+        sell = amount*price
+        print(f"Sold {amount} {name} stock for ${sell}")
+        Player.Stats.sellStock(name, amount)
+        temp= round(Account.money + sell, 2)
+        Account.money = temp
+        print("Your Current Account Balance:-   $", Account.money)
+        companies.choosing.choose(Account.money)

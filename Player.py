@@ -1,4 +1,5 @@
 import companies
+import days
 
 class Stats:
     Nike = 0
@@ -28,13 +29,24 @@ class Stats:
                 Stats.Nvidia += amount
     @staticmethod
     def sellStock(name, amount):
-        pass
+            if (name == "Nike"):
+                Stats.Nike -= amount
+            elif (name == "Adidas"):
+                Stats.Adidas -= amount
+            elif (name == "Apple"):
+                Stats.Apple -= amount
+            elif (name == "Tesla"):
+                Stats.Tesla -= amount
+            elif (name == "S&P 500"):
+                Stats.SP500 -= amount
+            elif (name == "NVIDIA"):
+                Stats.Nvidia -= amount
     @staticmethod
     def end():
         pass
     @staticmethod
     def show(balance):
-        print("End of Day Stats")
+        print(f"End of Day {days.Days.gameDay} Stats")
         print("Your Account balance :-  $", balance)
         print(f"You own {Stats.Nike} Nike Stocks")
         print(f"You own {Stats.Adidas} Adidas Stocks")

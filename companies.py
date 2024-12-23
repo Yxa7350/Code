@@ -36,6 +36,16 @@ class choosing:
                     maxBuy = math.floor(balance/ stockPrice)
                     amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 0, maxBuy)
                     accountBalance.Account.buyStock(amountBuy, stockPrice, name)
+                sure = input(f"Are you sure you want to sell {name} Stock? (y/n)    ")
+                if sure == "y":
+                    if name == "S&P 500":
+                        maxSell = getattr(Player.Stats, "SP500") #Exceptions
+                    elif name == "NVIDIA":
+                        maxSell = getattr(Player.Stats, "Nvidia")  #Exceptions
+                    else:
+                        maxSell = getattr(Player.Stats, name)
+                    amountSell = inputValidator.Validator.get_integer(f"How much Stock do you want to sell? (max - {maxSell})    ", 0, maxSell)
+                    accountBalance.Account.sellStock(amountSell, stockPrice, name)
 
             choice = input("In which Company would you like to invest?  (write \"DONE\" if you are done)  ")
             if (choice == "Nike"):
