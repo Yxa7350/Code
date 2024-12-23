@@ -4,6 +4,7 @@ import graphMaker
 import math
 import inputValidator
 import accountBalance
+import Player
 
 companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA"]
 
@@ -26,81 +27,54 @@ class choosing:
                     return closing_price
                 else:
                     return None  # No data for the given date range
+            def interaction(name, Ticker):
+                graphMaker.fiftyDays(Ticker)
+                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
+                print(f"Current {name} stock price:-   $", stockPrice)
+                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
+                if sure == "y":
+                    maxBuy = math.floor(balance/ stockPrice)
+                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 0, maxBuy)
+                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
 
             choice = input("In which Company would you like to invest?  (write \"DONE\" if you are done)  ")
             if (choice == "Nike"):
                 name = "Nike"
                 Ticker = yf.Ticker("NKE")
-                graphMaker.fiftyDays(Ticker)
-                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
-                print(f"Current {name} stock price:-   $", stockPrice)
-                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
-                if sure == "y":
-                    maxBuy = math.floor(balance/ stockPrice)
-                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 1, maxBuy)
-                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
-                    break
+                interaction(name, Ticker)
+                break
             elif (choice == "Adidas"):
                 name = "Adidas"
-                Ticker = yf.Ticker("ADR")
-                graphMaker.fiftyDays(Ticker)
-                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
-                print(f"Current {name} stock price:-   $", stockPrice)
-                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
-                if sure == "y":
-                    maxBuy = math.floor(balance/ stockPrice)
-                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 1, maxBuy)
-                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
-                    break
+                Ticker = yf.Ticker("ADDYY")
+                interaction(name, Ticker)
+                break
             elif (choice == "Apple"):
                 name = "Apple"
                 Ticker = yf.Ticker("AAPL")
-                graphMaker.fiftyDays(Ticker)
-                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
-                print(f"Current {name} stock price:-   $", stockPrice)
-                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
-                if sure == "y":
-                    maxBuy = math.floor(balance/ stockPrice)
-                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 1, maxBuy)
-                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
-                    break
+                interaction(name, Ticker)
+                break
             elif (choice == "Tesla"):
                 name = "Tesla"
                 Ticker = yf.Ticker("TSLA")
-                graphMaker.fiftyDays(Ticker)
-                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
-                print(f"Current {name} stock price:-   $", stockPrice)
-                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
-                if sure == "y":
-                    maxBuy = math.floor(balance/ stockPrice)
-                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 1, maxBuy)
-                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
-                    break
+                interaction(name, Ticker)
+                break
             elif (choice == "S&P 500"):
                 name = "S&P 500"
                 Ticker = yf.Ticker("SPX")
-                graphMaker.fiftyDays(Ticker)
-                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
-                print(f"Current {name} stock price:-   $", stockPrice)
-                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
-                if sure == "y":
-                    maxBuy = math.floor(balance/ stockPrice)
-                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 1, maxBuy)
-                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
-                    break
+                interaction(name, Ticker)
+                break
             elif (choice == "NVIDIA"):
                 name = "NVIDIA"
                 Ticker = yf.Ticker("NVDA")
-                graphMaker.fiftyDays(Ticker)
-                stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
-                print(f"Current {name} stock price:-   $", stockPrice)
-                sure = input(f"Are you sure you want to buy {name} Stock? (y/n)    ")
-                if sure == "y":
-                    maxBuy = math.floor(balance/ stockPrice)
-                    amountBuy = inputValidator.Validator.get_integer(f"How much Stock do you want to buy? (max - {maxBuy})    ", 1, maxBuy)
-                    accountBalance.Account.buyStock(amountBuy, stockPrice, name)
-                    break
-            elif (choice == "DONE"):
+                interaction(name, Ticker)
                 break
+            elif (choice == "DONE"):
+                if (days.Days.today == days.Days.stockTimeEnd):
+                    Player.Stats.end()
+                    break
+                else:
+                    days.Days.add_days()
+                    Player.Stats.show(balance)
+                    break
             else:
                 print("Please enter a valid company name")

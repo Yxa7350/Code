@@ -1,6 +1,7 @@
 import datetime
 
 class Days:
+    today = datetime.date.today()
     @staticmethod
     def days_ago(n):
         return datetime.date.today() - datetime.timedelta(days=n)

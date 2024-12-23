@@ -1,10 +1,12 @@
+import companies
+
 class Stats:
     Nike = 0
     Adidas = 0
     Apple = 0
     Tesla = 0
     SP500 = 0
-    NVIDIA = 0
+    Nvidia = 0
     startingBalance = 0
     finalBalance = 0
     @staticmethod
@@ -23,7 +25,22 @@ class Stats:
             elif (name == "S&P 500"):
                 Stats.SP500 += amount
             elif (name == "NVIDIA"):
-                Stats.NVIDIA += amount
+                Stats.Nvidia += amount
     @staticmethod
     def sellStock(name, amount):
         pass
+    @staticmethod
+    def end():
+        pass
+    @staticmethod
+    def show(balance):
+        print("End of Day Stats")
+        print("Your Account balance :-  $", balance)
+        print(f"You own {Stats.Nike} Nike Stocks")
+        print(f"You own {Stats.Adidas} Adidas Stocks")
+        print(f"You own {Stats.Apple} Apple Stocks")
+        print(f"You own {Stats.Tesla} Tesla Stocks")
+        print(f"You own {Stats.SP500} S&P 500 Stocks")
+        print(f"You own {Stats.Nvidia} NVIDIA Stocks")
+        print("10 Days Later...")
+        companies.choosing.choose(balance)
