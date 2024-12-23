@@ -1,5 +1,8 @@
 import companies
 import days
+import accountBalance
+import yfinance as yf
+import datetime
 
 class Stats:
     Nike = 0
@@ -13,6 +16,20 @@ class Stats:
     @staticmethod
     def startingMoney(amount):
         Stats.startingBalance = amount
+    startDate = datetime.date.today() + datetime.timedelta(1)
+    endDate = datetime.date.today()
+    @staticmethod
+    def get_stock_price(ticker, start_date, end_date):
+        # Get historical market data for the specific date range
+        historical_data = ticker.history(start=start_date, end=end_date)
+
+        # Check if data is available for the given date range
+        if not historical_data.empty:
+            # Retrieve the closing price for the last day in the range
+            closing_price = historical_data['Close'].iloc[-1]  # Get the last day's price
+            return closing_price
+        else:
+            return None  # No data for the given date range
     @staticmethod
     def addStock(name, amount):
             if (name == "Nike"):
@@ -43,7 +60,32 @@ class Stats:
                 Stats.Nvidia -= amount
     @staticmethod
     def end():
-        pass
+        Ticker = yf.Ticker("NKE")
+        stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
+        maxSell = Stats.Nike
+        accountBalance.Account.sellStock(maxSell, stockPrice, "Nike")
+        Ticker = yf.Ticker("ADDYY")
+        stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
+        maxSell = Stats.Adidas
+        accountBalance.Account.sellStock(maxSell, stockPrice, "Adidas")
+        Ticker = yf.Ticker("AAPL")
+        stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
+        maxSell = Stats.Apple
+        accountBalance.Account.sellStock(maxSell, stockPrice, "Apple")
+        Ticker = yf.Ticker("TSLA")
+        stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
+        maxSell = Stats.Tesla
+        accountBalance.Account.sellStock(maxSell, stockPrice, "Tesla")
+        Ticker = yf.Ticker("^GSPC")
+        stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
+        maxSell = Stats.SP500
+        accountBalance.Account.sellStock(maxSell, stockPrice, "S&P 500")
+        Ticker = yf.Ticker("NVDA")
+        stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
+        maxSell = Stats.Nvidia
+        accountBalance.Account.sellStock(maxSell, stockPrice, "NVIDIA")
+    
+
     @staticmethod
     def show(balance):
         print(f"End of Day {days.Days.gameDay} Stats")

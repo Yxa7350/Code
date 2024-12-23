@@ -70,7 +70,7 @@ class choosing:
                 break
             elif (choice == "S&P 500"):
                 name = "S&P 500"
-                Ticker = yf.Ticker("SPX")
+                Ticker = yf.Ticker("^GSPC")
                 interaction(name, Ticker)
                 break
             elif (choice == "NVIDIA"):
