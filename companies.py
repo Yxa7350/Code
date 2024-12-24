@@ -5,6 +5,7 @@ import math
 import inputValidator
 import accountBalance
 import Player
+import datetime
 
 companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA"]
 
@@ -17,16 +18,26 @@ class choosing:
             startDate = days.Days.stockTimeStart
             end = days.Days.stockTimeEnd
             def get_stock_price(ticker, start_date, end_date):
+                # Ensure the provided object is a valid yfinance Ticker
+                if not isinstance(ticker, yf.Ticker):
+                    raise ValueError("ticker must be an instance of yfinance.Ticker")
+
                 # Get historical market data for the specific date range
                 historical_data = ticker.history(start=start_date, end=end_date)
 
                 # Check if data is available for the given date range
                 if not historical_data.empty:
-                    # Retrieve the closing price for the last day in the range
-                    closing_price = historical_data['Close'].iloc[-1]  # Get the last day's price
+                    # Retrieve the closing price for the last available day in the range
+                    closing_price = historical_data['Close'].iloc[-1]
                     return closing_price
                 else:
-                    return None  # No data for the given date range
+                    # Fetch data for the nearest previous trading day
+                    historical_data = ticker.history(period='5d')  # Fetch last 5 days of data
+                    if not historical_data.empty:
+                        closing_price = historical_data['Close'].iloc[-1]  # Most recent closing price
+                        return closing_price
+                    else:
+                        return None  # No data available at all
             def interaction(name, Ticker):
                 graphMaker.fiftyDays(Ticker)
                 stockPrice = round(get_stock_price(Ticker, startDate, end), 2)
@@ -79,7 +90,7 @@ class choosing:
                 interaction(name, Ticker)
                 break
             elif (choice == "DONE"):
-                if (days.Days.today == days.Days.stockTimeEnd):
+                if (days.Days.today == (days.Days.stockTimeEnd + datetime.timedelta(10))):
                     Player.Stats.end()
                     break
                 else:

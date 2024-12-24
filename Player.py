@@ -2,7 +2,6 @@ import companies
 import days
 import accountBalance
 import yfinance as yf
-import datetime
 
 class Stats:
     Nike = 0
@@ -16,20 +15,30 @@ class Stats:
     @staticmethod
     def startingMoney(amount):
         Stats.startingBalance = amount
-    startDate = datetime.date.today() + datetime.timedelta(1)
-    endDate = datetime.date.today()
+    startDate = days.Days.stockTimeStart
+    endDate = days.Days.stockTimeEnd
     @staticmethod
     def get_stock_price(ticker, start_date, end_date):
-        # Get historical market data for the specific date range
-        historical_data = ticker.history(start=start_date, end=end_date)
+                # Ensure the provided object is a valid yfinance Ticker
+                if not isinstance(ticker, yf.Ticker):
+                    raise ValueError("ticker must be an instance of yfinance.Ticker")
 
-        # Check if data is available for the given date range
-        if not historical_data.empty:
-            # Retrieve the closing price for the last day in the range
-            closing_price = historical_data['Close'].iloc[-1]  # Get the last day's price
-            return closing_price
-        else:
-            return None  # No data for the given date range
+                # Get historical market data for the specific date range
+                historical_data = ticker.history(start=start_date, end=end_date)
+
+                # Check if data is available for the given date range
+                if not historical_data.empty:
+                    # Retrieve the closing price for the last available day in the range
+                    closing_price = historical_data['Close'].iloc[-1]
+                    return closing_price
+                else:
+                    # Fetch data for the nearest previous trading day
+                    historical_data = ticker.history(period='5d')  # Fetch last 5 days of data
+                    if not historical_data.empty:
+                        closing_price = historical_data['Close'].iloc[-1]  # Most recent closing price
+                        return closing_price
+                    else:
+                        return None  # No data available at all
     @staticmethod
     def addStock(name, amount):
             if (name == "Nike"):
@@ -63,28 +72,38 @@ class Stats:
         Ticker = yf.Ticker("NKE")
         stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
         maxSell = Stats.Nike
-        accountBalance.Account.sellStock(maxSell, stockPrice, "Nike")
+        accountBalance.Account.finalSellStock(maxSell, stockPrice, "Nike")
         Ticker = yf.Ticker("ADDYY")
         stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
         maxSell = Stats.Adidas
-        accountBalance.Account.sellStock(maxSell, stockPrice, "Adidas")
+        accountBalance.Account.finalSellStock(maxSell, stockPrice, "Adidas")
         Ticker = yf.Ticker("AAPL")
         stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
         maxSell = Stats.Apple
-        accountBalance.Account.sellStock(maxSell, stockPrice, "Apple")
+        accountBalance.Account.finalSellStock(maxSell, stockPrice, "Apple")
         Ticker = yf.Ticker("TSLA")
         stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
         maxSell = Stats.Tesla
-        accountBalance.Account.sellStock(maxSell, stockPrice, "Tesla")
+        accountBalance.Account.finalSellStock(maxSell, stockPrice, "Tesla")
         Ticker = yf.Ticker("^GSPC")
         stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
         maxSell = Stats.SP500
-        accountBalance.Account.sellStock(maxSell, stockPrice, "S&P 500")
+        accountBalance.Account.finalSellStock(maxSell, stockPrice, "S&P 500")
         Ticker = yf.Ticker("NVDA")
         stockPrice = round(Stats.get_stock_price(Ticker, Stats.startDate, Stats.endDate), 2)
         maxSell = Stats.Nvidia
-        accountBalance.Account.sellStock(maxSell, stockPrice, "NVIDIA")
-    
+        accountBalance.Account.finalSellStock(maxSell, stockPrice, "NVIDIA")
+        Stats.finalBalance = accountBalance.Account.money
+        print("Your Final Account Balance:  $", accountBalance.Account.money)
+        if Stats.finalBalance > Stats.startingBalance:
+             margin = Stats.finalBalance - Stats.startingBalance
+             print("Congratulations! You won with a profit margin of $", margin)
+             print("Thank You for playing!")
+        else:
+             margin = Stats.startingBalance - Stats.finalBalance
+             print("You Lost!")
+             print("You suffered a loss of $", margin)
+             print("Better luck next time!")
 
     @staticmethod
     def show(balance):

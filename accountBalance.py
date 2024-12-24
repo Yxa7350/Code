@@ -28,3 +28,9 @@ class Account:
         Account.money = temp
         print("Your Current Account Balance:-   $", Account.money)
         companies.choosing.choose(Account.money)
+
+    def finalSellStock(amount, price, name):
+        sell = amount*price
+        Player.Stats.sellStock(name, amount)
+        temp= round(Account.money + sell, 2)
+        Account.money = temp
