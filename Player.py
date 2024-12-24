@@ -2,6 +2,8 @@ import companies
 import days
 import accountBalance
 import yfinance as yf
+import sys
+import warnings
 
 class Stats:
     Nike = 0
@@ -23,8 +25,12 @@ class Stats:
                 if not isinstance(ticker, yf.Ticker):
                     raise ValueError("ticker must be an instance of yfinance.Ticker")
 
-                # Get historical market data for the specific date range
-                historical_data = ticker.history(start=start_date, end=end_date)
+                # Suppress yfinance warnings
+                with warnings.catch_warnings():
+                    warnings.filterwarnings("ignore", category=UserWarning, module="yfinance")
+
+                    # Get historical market data for the specific date range
+                    historical_data = ticker.history(start=start_date, end=end_date)
 
                 # Check if data is available for the given date range
                 if not historical_data.empty:
@@ -33,7 +39,10 @@ class Stats:
                     return closing_price
                 else:
                     # Fetch data for the nearest previous trading day
-                    historical_data = ticker.history(period='5d')  # Fetch last 5 days of data
+                    with warnings.catch_warnings():
+                        warnings.filterwarnings("ignore", category=UserWarning, module="yfinance")
+                        historical_data = ticker.history(period='5d')  # Fetch last 5 days of data
+
                     if not historical_data.empty:
                         closing_price = historical_data['Close'].iloc[-1]  # Most recent closing price
                         return closing_price
@@ -99,11 +108,13 @@ class Stats:
              margin = Stats.finalBalance - Stats.startingBalance
              print("Congratulations! You won with a profit margin of $", margin)
              print("Thank You for playing!")
+             sys.exit(0)
         else:
              margin = Stats.startingBalance - Stats.finalBalance
              print("You Lost!")
              print("You suffered a loss of $", margin)
              print("Better luck next time!")
+             sys.exit(0)
 
     @staticmethod
     def show(balance):

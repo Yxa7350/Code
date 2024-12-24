@@ -6,6 +6,7 @@ import inputValidator
 import accountBalance
 import Player
 import datetime
+import warnings
 
 companyList = ["Nike", "Adidas", "Apple", "Tesla", "S&P 500", "NVIDIA"]
 
@@ -22,8 +23,12 @@ class choosing:
                 if not isinstance(ticker, yf.Ticker):
                     raise ValueError("ticker must be an instance of yfinance.Ticker")
 
-                # Get historical market data for the specific date range
-                historical_data = ticker.history(start=start_date, end=end_date)
+                # Suppress yfinance warnings
+                with warnings.catch_warnings():
+                    warnings.filterwarnings("ignore", category=UserWarning, module="yfinance")
+
+                    # Get historical market data for the specific date range
+                    historical_data = ticker.history(start=start_date, end=end_date)
 
                 # Check if data is available for the given date range
                 if not historical_data.empty:
@@ -32,7 +37,10 @@ class choosing:
                     return closing_price
                 else:
                     # Fetch data for the nearest previous trading day
-                    historical_data = ticker.history(period='5d')  # Fetch last 5 days of data
+                    with warnings.catch_warnings():
+                        warnings.filterwarnings("ignore", category=UserWarning, module="yfinance")
+                        historical_data = ticker.history(period='5d')  # Fetch last 5 days of data
+
                     if not historical_data.empty:
                         closing_price = historical_data['Close'].iloc[-1]  # Most recent closing price
                         return closing_price
