@@ -7,9 +7,9 @@ class Days:
     def days_ago(n):
         return datetime.date.today() - datetime.timedelta(days=n)
 
-    stockTimeEnd = days_ago(50)
-    stockTimeStart = days_ago(51)
-    fiftyStock = days_ago(100)
+    stockTimeEnd = days_ago(110)
+    stockTimeStart = days_ago(111)
+    fiftyStock = days_ago(161)
     
     @staticmethod
     def add_days():

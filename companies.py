@@ -97,7 +97,7 @@ class choosing:
                 interaction(name, Ticker)
                 break
             elif (choice == "DONE"):
-                if days.Days.today == days.Days.stockTimeEnd:
+                if (days.Days.today == (days.Days.stockTimeEnd + datetime.timedelta(10))):
                     Player.Stats.end()
                     break
                 else:
